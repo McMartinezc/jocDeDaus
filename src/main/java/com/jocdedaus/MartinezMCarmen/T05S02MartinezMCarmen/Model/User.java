@@ -29,6 +29,7 @@ public class User {
     private LocalDate dataRegistre;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "")
     private List<Tirada> misTiradas;
 
     //Constructors
