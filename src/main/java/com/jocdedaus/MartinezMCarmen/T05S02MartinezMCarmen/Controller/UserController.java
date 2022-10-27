@@ -57,6 +57,8 @@ public class UserController {
 
     //JOC
 
+    //crear partida??
+
     //Jugador tira els daus
     @GetMapping("/tirada/{id}")
     public ResponseEntity<Tirada> jugadorTiraDaus (@PathVariable Long id){
@@ -68,4 +70,13 @@ public class UserController {
     public ResponseEntity<List<Tirada>> percentatgeExitJugador(@PathVariable Long id){
         return ResponseEntity.ok().build();
     }
+    //Percentatge total dels jugadors
+
+    //Millor
+
+    //Pitjor
+
+
+
+
 }
