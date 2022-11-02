@@ -16,10 +16,12 @@ import java.util.List;
 @Data
 
 @Entity
+@Table(name="jugador")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="id_jugador")
     private Long id;
 
     @Column(name ="nom_jugador")
@@ -28,27 +30,30 @@ public class User {
     @Column(name="data_registre")
     private LocalDate dataRegistre;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tirada> misTiradas;
 
     //Constructors
     public User() {
     }
 
-    public User(Long id, String nomJugador, LocalDate dataRegistre, List<Tirada> misTiradas) {
+    public User(Long id, String nomJugador, LocalDate dataRegistre) {
         this.id = id;
         this.nomJugador = nomJugador;
-        this.dataRegistre = dataRegistre;
-        this.misTiradas = misTiradas;
+        this.dataRegistre = LocalDate.now();
+        misTiradas = new ArrayList<Tirada>();
     }
 
 
     //Guardem la tirada del jugador a la llista de les seves tirades
-    public void addTirada(Tirada miTirada){
+    public void addTirada (Tirada miTirada){
+
         if (misTiradas ==null){
             misTiradas = new ArrayList<Tirada>();
         }
         misTiradas.add(miTirada);
     }
+
+
+
 }

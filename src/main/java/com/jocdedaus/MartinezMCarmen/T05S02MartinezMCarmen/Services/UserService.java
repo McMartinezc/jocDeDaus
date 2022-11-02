@@ -43,10 +43,10 @@ public class UserService {
             user.setNomJugador("Anonim");
         }
 
-//        //Verifiquem que nom no existeixi a al base de dades
-//        if(userRepository.userByNomJugador(userDto.getNomJugador())){
-//            throw new AlreadyExist("Aquest nom "+userDto.getNomJugador() +" ja existeix.");
-//        }
+       //Verifiquem que nom no existeixi a al base de dades
+       if(userRepository.existsByNomJugador(userDto.getNomJugador())){
+           throw new AlreadyExist("Aquest nom "+userDto.getNomJugador() +" ja existeix.");
+      }
         userRepository.save(user);
 
         //Convertirm entitat a dto per enviar al usuari
@@ -81,6 +81,7 @@ public class UserService {
             throw new AlreadyExist("Aquest usuari no existeix");
         }
         //Si existeix, modifiquem el nom del jugador i ho gardem al repository i convertim a dto per mostrar a l'usuari
+
         user.setNomJugador(userDto.getNomJugador());
         return convertEntitatADto(userRepository.save(user));
     }
@@ -102,34 +103,13 @@ public class UserService {
         if(jugador.isEmpty()){
             throw new AlreadyExist("Jugador no existeix.");
         }
-
         User user = jugador.get();
-        tiradaRepository.deleteAll(user.getMisTiradas());
-        user.getMisTiradas().clear();
-
+        user.getMisTiradas().removeAll(user.getMisTiradas());
+        userRepository.save(user);
         return convertEntitatADto(user);
     }
+    //LLISTATS DE JUGADORS
 
-
-    //JOC
-
-    //Jugador tira els daus
-    public Tirada jugadorTiraDaus (Long id){
-
-        Optional<User> jugador = userRepository.findById(id);
-
-        //Comprovem que existeix el jugador
-        if (jugador.isEmpty()){
-            throw new AlreadyExist("El jugador no existeix amb aquesta id.");
-        }
-
-        //Creem la tirada
-        User user = jugador.get();
-        Tirada tirada = new Tirada(user);
-        //Guardem la tirada
-        user.addTirada(tirada);
-        return tiradaRepository.save(tirada);
-    }
 
 
 

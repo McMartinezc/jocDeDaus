@@ -1,5 +1,6 @@
 package com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Data
 
 @Entity
-@Table(name= "Tirada")
+@Table(name= "tirada")
 
 public class Tirada {
 
@@ -28,22 +29,24 @@ public class Tirada {
     private boolean guanya;
 
     //Relació molts a un (moltes tirades, només un jugador)
+    @JsonIgnore
     @ManyToOne
+    @JoinColumn(name="id_jugador")
     private User user;
 
-    //Constructor
+    //Constructors
     public Tirada() {
     }
 
-    public Tirada(int idTirada, int dau1, int dau2, boolean guanya) {
+    public Tirada(int idTirada, int dau1, int dau2, boolean guanya, User user) {
         this.idTirada = idTirada;
         this.dau1 = dau1;
         this.dau2 = dau2;
         this.guanya = guanya;
+        this.user = user;
     }
 
     public Tirada (User user) {
-        this.idTirada = idTirada;
         this.dau1 = generarTirada();
         this.dau2 = generarTirada();
         this.guanya = resultatTirada();

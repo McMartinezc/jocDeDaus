@@ -40,12 +40,14 @@ public class UserController {
 
     //Update jugador
     @PutMapping("/update/{id}")
-    public ResponseEntity<UserDto> updateJugador (@PathVariable Long id, @RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> updateJugador (@PathVariable("id") Long id, @RequestBody UserDto userDto){
+        
         //No existe jugador
         if(userDto.getId() == null){
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(userService.updateUser(id, userDto));
+
+        return new ResponseEntity<>(userService.updateUser(id, userDto), HttpStatus.CREATED);
     }
 
     //Borrar llistat de tirades d'un jugador
@@ -54,29 +56,5 @@ public class UserController {
         userService.deletetirades(id);
         return ResponseEntity.noContent().build();
     }
-
-    //JOC
-
-    //crear partida??
-
-    //Jugador tira els daus
-    @GetMapping("/tirada/{id}")
-    public ResponseEntity<Tirada> jugadorTiraDaus (@PathVariable Long id){
-        return ResponseEntity.ok(userService.jugadorTiraDaus(id));
-    }
-
-    //Percentatge d'èxit d'un jugador
-    @GetMapping("/games/{id}")
-    public ResponseEntity<List<Tirada>> percentatgeExitJugador(@PathVariable Long id){
-        return ResponseEntity.ok().build();
-    }
-    //Percentatge total dels jugadors
-
-    //Millor
-
-    //Pitjor
-
-
-
 
 }
