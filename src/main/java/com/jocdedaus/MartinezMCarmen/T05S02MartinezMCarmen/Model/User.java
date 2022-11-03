@@ -4,6 +4,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,6 +18,8 @@ import java.util.List;
 @ToString
 @Data
 
+//Anotación para poder usar el crear fecha de registro
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name="jugador")
 public class User {
@@ -28,6 +33,7 @@ public class User {
     private String nomJugador;
 
     @Column(name="data_registre")
+    @CreatedDate
     private LocalDate dataRegistre;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

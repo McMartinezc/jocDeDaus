@@ -27,7 +27,7 @@ public class TiradaController {
         if (tirada == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new  ResponseEntity<>(tirada , HttpStatus.OK);
+        return new  ResponseEntity<>(tirada, HttpStatus.OK);
     }
 
     //RETORNA LLISTATS

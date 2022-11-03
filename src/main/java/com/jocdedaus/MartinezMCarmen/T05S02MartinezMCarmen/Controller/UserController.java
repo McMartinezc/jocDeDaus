@@ -4,12 +4,14 @@ import com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.DTO.UserDto;
 import com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.Model.Tirada;
 import com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+//Para el uso de la anotación de crear fecha
+@EnableJpaAuditing
 @RestController
 @RequestMapping("/players/")
 public class UserController {
