@@ -81,10 +81,15 @@ public class UserService {
             throw new AlreadyExist("Aquest usuari no existeix");
         }
         //Si existeix, modifiquem el nom del jugador i ho gardem al repository i convertim a dto per mostrar a l'usuari
+        if(userRepository.existsByNomJugador(userDto.getNomJugador())){
+            throw new AlreadyExist("Aquest nom d'usuari ja existeix.");
+        }
 
         user.setNomJugador(userDto.getNomJugador());
-        return convertEntitatADto(userRepository.save(user));
+        userRepository.save(user);
+        return convertEntitatADto(user);
     }
+
 
     //Mostra tots els jugadors
     public List<UserDto> getAllUsers() {

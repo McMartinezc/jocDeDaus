@@ -1,5 +1,6 @@
 package com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.Services;
 
+import com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.DTO.UserDto;
 import com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.Exception.AlreadyExist;
 import com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.Model.Tirada;
 import com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.Model.User;
@@ -17,7 +18,6 @@ public class TiradaService {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private TiradaRepository tiradaRepository;
 
@@ -38,13 +38,11 @@ public class TiradaService {
 
     //Mostrar tirades d'un jugador
     public List<Tirada> getListTiradesJugador (Long id){
-
         Optional <User> userOptional = userRepository.findById(id);
 
         if(userOptional.get().getMisTiradas().isEmpty()){
             throw new AlreadyExist("Jugador no té tirades");
         }
-
        return userOptional.get().getMisTiradas().stream().collect(Collectors.toList());
     }
 
@@ -56,22 +54,27 @@ public class TiradaService {
         int totalGuanyat =0;
 
         //Comprovem que la llista no està buida
-        if(userOptional.get().getMisTiradas().isEmpty()){
+        if (userOptional.get().getMisTiradas().isEmpty()){
             throw new AlreadyExist("Jugador no té tirades");
         }
 
-        if(userOptional.get().getMisTiradas() != null && tamanyLlista >0){
-            for(Tirada tirada: getListTiradesJugador(id)){
-                if(tirada.isGuanya()){
+        if (userOptional.get().getMisTiradas() != null && tamanyLlista > 0){
+            for (Tirada tirada: getListTiradesJugador(id)){
+                if (tirada.isGuanya()){
                     totalGuanyat ++;
                 }
             }
             percentatgeExit = (totalGuanyat *100) / tamanyLlista;
         }
+       // userOptional.get().setPercentatge(percentatgeExit);
+
         return percentatgeExit;
+
     }
 
+    //retorna el ranking mig de tots els jugadors/es del sistema.
 
+    //Millor el llistat del millor
 
-
+    //Retorna el llistat de Pitjor
 }

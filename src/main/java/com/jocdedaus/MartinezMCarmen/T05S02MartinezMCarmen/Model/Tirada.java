@@ -70,4 +70,6 @@ public class Tirada {
         }
         return resultat;
     }
+
+
 }

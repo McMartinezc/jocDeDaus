@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 //Para el uso de la anotación de crear fecha
-@EnableJpaAuditing
+//@EnableJpaAuditing
 @RestController
 @RequestMapping("/players/")
 public class UserController {
@@ -44,11 +44,6 @@ public class UserController {
     @PutMapping("/update/{id}")
     public ResponseEntity<UserDto> updateJugador (@PathVariable("id") Long id, @RequestBody UserDto userDto){
         
-        //No existe jugador
-        if(userDto.getId() == null){
-            return ResponseEntity.badRequest().build();
-        }
-
         return new ResponseEntity<>(userService.updateUser(id, userDto), HttpStatus.CREATED);
     }
 
