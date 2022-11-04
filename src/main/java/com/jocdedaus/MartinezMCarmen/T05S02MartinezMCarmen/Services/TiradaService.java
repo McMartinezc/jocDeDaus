@@ -46,33 +46,7 @@ public class TiradaService {
        return userOptional.get().getMisTiradas().stream().collect(Collectors.toList());
     }
 
-    //Calcul de percentatge d'èxit del jugador
-    public double calculaPercentatgeExitJugador (Long id){
-        double percentatgeExit =0;
-        Optional <User> userOptional = userRepository.findById(id);
-        int tamanyLlista = userOptional.get().getMisTiradas().size();
-        int totalGuanyat =0;
 
-        //Comprovem que la llista no està buida
-        if (userOptional.get().getMisTiradas().isEmpty()){
-            throw new AlreadyExist("Jugador no té tirades");
-        }
-
-        if (userOptional.get().getMisTiradas() != null && tamanyLlista > 0){
-            for (Tirada tirada: getListTiradesJugador(id)){
-                if (tirada.isGuanya()){
-                    totalGuanyat ++;
-                }
-            }
-            percentatgeExit = (totalGuanyat *100) / tamanyLlista;
-        }
-       // userOptional.get().setPercentatge(percentatgeExit);
-
-        return percentatgeExit;
-
-    }
-
-    //retorna el ranking mig de tots els jugadors/es del sistema.
 
     //Millor el llistat del millor
 

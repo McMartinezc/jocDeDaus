@@ -10,6 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,11 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-
-
     private final TiradaRepository tiradaRepository;
-
-
     @Autowired
     private ModelMapper modelMapper;
 
@@ -80,7 +78,7 @@ public class UserService {
         if(!userRepository.existsById(id)){
             throw new AlreadyExist("Aquest usuari no existeix");
         }
-        //Si existeix, modifiquem el nom del jugador i ho gardem al repository i convertim a dto per mostrar a l'usuari
+        //Si existeix, modifiquem el nom del jugador, ho guardem al repository i convertim a dto per mostrar a l'usuari
         if(userRepository.existsByNomJugador(userDto.getNomJugador())){
             throw new AlreadyExist("Aquest nom d'usuari ja existeix.");
         }
@@ -113,10 +111,57 @@ public class UserService {
         userRepository.save(user);
         return convertEntitatADto(user);
     }
-    //LLISTATS DE JUGADORS
 
 
+    //Llistat de percentatges
+    //Retorna el ranking mig de tots els jugadors/es del sistema.
 
+    //Retorna la llista de tots els jugadors amb el seu percentatge d'èxit
+    public List<User> getListJugadorsRanking (List<User> llistaJugadors){
+        List<User> jugadors = new ArrayList<>();
+        double percentatgeExit;
+
+        for(User user: llistaJugadors){
+            percentatgeExit = calculaPercentatgeExitJugador(user.getId());
+            user.setPercentatge(percentatgeExit);
+            jugadors.add(user);
+        }
+        return jugadors;
+    }
+
+    //Retorna el millor jugador
+    public User getJugadorLoser(){
+        List<User> llistatJugadors = userRepository.findAll();
+        List<User> jugadorsRanking = getListJugadorsRanking(llistatJugadors);
+        jugadorsRanking.stream().collect(Collectors.groupingBy().toList())
+    }
+
+    //CÀLCUL PERCENTATGE D'UN JUGADOR
+    //Càlcul de percentatge d'èxit del jugador
+    private double calculaPercentatgeExitJugador (Long id){
+        double percentatgeExit =0;
+        Optional <User> userOptional = userRepository.findById(id);
+        int tamanyLlista = userOptional.get().getMisTiradas().size();
+        int totalGuanyat =0;
+
+        //Comprovem que la llista no està buida
+        if (userOptional.get().getMisTiradas().isEmpty()){
+            throw new AlreadyExist("Jugador no té tirades");
+        }
+
+        if (userOptional.get().getMisTiradas() != null && tamanyLlista > 0){
+            for (Tirada tirada: userOptional.get().getMisTiradas()){
+                if (tirada.isGuanya()){
+                    totalGuanyat ++;
+                }
+            }
+            percentatgeExit = (totalGuanyat *100) / tamanyLlista;
+        }
+        // userOptional.get().setPercentatge(percentatgeExit);
+
+        return percentatgeExit;
+
+    }
 
     //MODELMAPPERS
 

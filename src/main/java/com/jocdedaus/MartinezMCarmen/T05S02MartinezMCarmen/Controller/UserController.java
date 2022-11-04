@@ -54,4 +54,12 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    //LLISTATS JUGADORS
+
+    //Retorna llista de percentatge d'èxit del jugador
+  //  @GetMapping("/percentatgeExitJugador/{id}")
+    //public ResponseEntity<Double> mostraPercentatgeTiradaExitJugador (@PathVariable("id") Long id){
+      //  return new ResponseEntity<Double>(userService.calculaPercentatgeExitJugador(id), HttpStatus.OK);
+    //}
+
 }

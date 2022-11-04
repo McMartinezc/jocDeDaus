@@ -43,9 +43,4 @@ public class TiradaController {
     }
 
 
-    //Retorna llista de percentatge d'èxit del jugador
-    @GetMapping("/percentatgeExitJugador/{id}")
-    public ResponseEntity<Double> mostraPercentatgeTiradaExitJugador (@PathVariable("id") Long id){
-        return new ResponseEntity<Double>(tiradaService.calculaPercentatgeExitJugador(id), HttpStatus.OK);
-    }
 }

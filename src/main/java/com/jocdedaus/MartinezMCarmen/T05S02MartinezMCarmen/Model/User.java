@@ -42,18 +42,18 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tirada> misTiradas;
 
-//    @Column(name = "Percentatge")
-//    private double percentatge;
+   @Column(name = "Percentatge")
+   private double percentatge;
 
     //Constructors
     public User() {
     }
 
-    public User(Long id, String nomJugador, LocalDate dataRegistre) {
+    public User(Long id, String nomJugador, double percentatge, LocalDate dataRegistre) {
         this.id = id;
         this.nomJugador = nomJugador;
         this.dataRegistre = dataRegistre;
-       // this.percentatge = percentatge;
+        this.percentatge = percentatge;
         misTiradas = new ArrayList<Tirada>();
     }
 
