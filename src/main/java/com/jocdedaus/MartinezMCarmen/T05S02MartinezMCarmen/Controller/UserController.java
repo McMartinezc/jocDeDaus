@@ -1,17 +1,15 @@
 package com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.Controller;
 
 import com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.DTO.UserDto;
-import com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.Model.Tirada;
-import com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.Model.User;
 import com.jocdedaus.MartinezMCarmen.T05S02MartinezMCarmen.Services.UserService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 //Para el uso de la anotación de crear fecha
@@ -21,7 +19,7 @@ import java.util.TreeMap;
 public class UserController {
     @Autowired
     private UserService userService;
-
+    private static final Log log = LogFactory.getLog(UserController.class);
 
     //METODES CRUD
 
@@ -53,7 +51,7 @@ public class UserController {
     //Borrar llistat de tirades d'un jugador
     @DeleteMapping("/deleteTirades/{id}")
     public ResponseEntity<UserDto> deleteTiradaJugador (@PathVariable Long id){
-        userService.deletetirades(id);
+        userService.deleteTirades(id);
         return ResponseEntity.noContent().build();
     }
 

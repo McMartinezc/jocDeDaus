@@ -47,9 +47,9 @@ public class User {
     private double percentatge;
 
     //Constructors
-    public User() {
+    public User(){
+        this.nomJugador="Anonim";
     }
-
     public User(Long id, String nomJugador, LocalDate dataRegistre) {
         this.id = id;
         this.nomJugador = nomJugador;

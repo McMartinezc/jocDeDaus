@@ -34,10 +34,9 @@ public class UserService {
         User user = convertDTOAEntitat(userDto);
 
         //Verifiquem condiciones si el nom és null o és buit guardem com anonim
-        if(user.getNomJugador()== null || user.getNomJugador().equals(user.getNomJugador().isEmpty())){
+        if(user.getNomJugador()== null || "".equals(user.getNomJugador())){
             user.setNomJugador("Anonim");
         }
-
        //Verifiquem que nom no existeixi a al base de dades
        if(userRepository.existsByNomJugador(user.getNomJugador())){
            throw new AlreadyExist("Aquest nom ja existeix.");
@@ -97,7 +96,7 @@ public class UserService {
     }
 
     //Borrar llistat de tirades d'un jugador
-    public UserDto deletetirades(Long id){
+    public UserDto deleteTirades(Long id){
         //Busquem jugador
         Optional<User> jugador = userRepository.findById(id);
 
