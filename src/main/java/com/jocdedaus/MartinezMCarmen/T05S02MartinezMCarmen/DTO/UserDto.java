@@ -17,4 +17,5 @@ public class UserDto {
     private String nomJugador;
     private LocalDate dataRegistre;
     private List<Tirada> misTiradas;
+    private double percentatge;
 }

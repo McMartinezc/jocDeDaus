@@ -29,7 +29,6 @@ public class TiradaService {
         if(jugador.isEmpty()){
             throw  new AlreadyExist("No existeix jugador amb aquesta id.");
         }
-
         User user = jugador.get();
         Tirada tirada = new Tirada (user);
         user.addTirada(tirada);
@@ -45,10 +44,4 @@ public class TiradaService {
         }
        return userOptional.get().getMisTiradas().stream().collect(Collectors.toList());
     }
-
-
-
-    //Millor el llistat del millor
-
-    //Retorna el llistat de Pitjor
 }

@@ -30,7 +30,7 @@ public class TiradaController {
         return new  ResponseEntity<>(tirada, HttpStatus.OK);
     }
 
-    //RETORNA LLISTATS
+    //RETORNA LLISTAT
 
     //Retorna el llistat de jugades d'un jugador
     @GetMapping("/tiradesJugador/{id}")
