@@ -24,6 +24,9 @@ public class UserService {
         this.userRepository = userRepository;
         this.tiradaRepository = tiradaRepository;
     }
+    
+     //Variable que té la utilitat per poder repetir els anonims
+    private static int contador = 1;
 
     //METODES CRUD
 
@@ -43,7 +46,7 @@ public class UserService {
       }
        //En el cas que sigui anònim guardem
        if(user.getNomJugador().equalsIgnoreCase("anonim")){
-           user.setNomJugador(user.getNomJugador());
+           user.setNomJugador(user.getNomJugador() + contador);
        }
         userRepository.save(user);
 
