@@ -21,8 +21,6 @@ import java.util.Optional;
 @ToString
 @Data
 
-//Anotación para poder usar el crear fecha de registro
-//@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name="jugador")
 public class User {
@@ -36,7 +34,6 @@ public class User {
     private String nomJugador;
 
     @Column(name="data_registre")
-    //@CreateDate
     //Anotación que crea la fecha
     @CreationTimestamp
     private LocalDate dataRegistre;
